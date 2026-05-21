@@ -1,17 +1,20 @@
 # ─── Base: PHP 8.2 + Apache ───────────────────────────────
 FROM php:8.2-apache
 
+# ─── Fix: disable mpm_event, enable mpm_prefork ──────────
+RUN a2dismod mpm_event || true \
+    && a2enmod mpm_prefork
+
 # ─── Install Python3 + pip ────────────────────────────────
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
-    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 # ─── Install PyMuPDF (fitz) ───────────────────────────────
 RUN pip3 install pymupdf --break-system-packages
 
-# ─── Enable Apache mod_rewrite (untuk .htaccess) ─────────
+# ─── Enable Apache mod_rewrite ───────────────────────────
 RUN a2enmod rewrite
 
 # ─── Copy Apache config ───────────────────────────────────
