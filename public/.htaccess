@@ -1,0 +1,20 @@
+# .htaccess - Security & config untuk Generator Surat BSI
+
+# Tidak tampilkan directory listing
+Options -Indexes
+
+# Default file
+DirectoryIndex index.php
+
+# Sembunyikan file sensitif
+<FilesMatch "(edit_surat\.py|\.env|composer\.json|\.gitkeep)$">
+    Require all denied
+</FilesMatch>
+
+# Blokir akses ke folder uploads dan output via URL
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^uploads/ - [F,L]
+    RewriteRule ^output/  - [F,L]
+</IfModule>

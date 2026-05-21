@@ -1,0 +1,16 @@
+# Jangan push file upload & output ke GitHub
+public/uploads/*
+public/output/*
+
+# Kecuali file .gitkeep (agar folder tetap ada di repo)
+!public/uploads/.gitkeep
+!public/output/.gitkeep
+
+# File sensitif
+.env
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
